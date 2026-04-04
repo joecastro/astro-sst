@@ -254,7 +254,9 @@ export class BuildMeta {
         ).version as string) ?? "unknown"
       );
     } catch (error) {
-      throw new Error("Failed to get adapter version", { cause: error });
+      const wrappedError = new Error("Failed to get adapter version");
+      (wrappedError as Error & { cause?: unknown }).cause = error;
+      throw wrappedError;
     }
   }
 }

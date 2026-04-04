@@ -4,24 +4,9 @@ This adapter allows Astro to deploy your SSR or static site to [AWS](https://aws
 
 ## Installation
 
-Add the AWS adapter to enable SST in your Astro project with the following `astro add` command. This will install the adapter and make the appropriate changes to your `astro.config.mjs` file in one step.
+Right now this fork isn't being published anywhere. To use it complete the steps:
 
-```sh
-# Using NPM
-npx astro add astro-sst
-# Using Yarn
-yarn astro add astro-sst
-# Using PNPM
-pnpm astro add astro-sst
-```
-
-If you prefer to install the adapter manually instead, complete the following two steps:
-
-1. Install the AWS adapter to your project's dependencies using your preferred package manager. If you're using npm or aren't sure, run this in the terminal:
-
-   ```bash
-     npm install astro-sst
-   ```
+1. Install the AWS adapter to your project's dependencies using your preferred package manager.
 
 1. Add two new lines to your `astro.config.mjs` project configuration file.
 
@@ -53,6 +38,29 @@ export default defineConfig({
   }),
 });
 ```
+
+## Publishing
+
+If you are publishing your fork of this package, update the package metadata in [packages/astro-sst/package.json](/Users/joe/source/astro-sst/packages/astro-sst/package.json) first, especially `name`, `version`, `repository`, and `bugs`.
+
+Manual release steps:
+
+```sh
+# Install dependencies from the repo root.
+pnpm install
+
+# Update the version in packages/astro-sst/package.json.
+# Update packages/astro-sst/CHANGELOG.md with the release notes for that version.
+
+# Build the package and verify TypeScript output is generated in packages/astro-sst/dist.
+pnpm build
+
+# Publish from the package directory.
+cd packages/astro-sst
+pnpm publish --access public
+```
+
+If you are publishing a scoped package, use your scoped package name and make sure that scope is configured in the npm registry account you are publishing to.
 
 ## Upgrading from v2
 
