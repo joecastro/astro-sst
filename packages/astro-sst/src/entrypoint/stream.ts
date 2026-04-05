@@ -1,32 +1,10 @@
 import { createApp } from "astro/app/entrypoint";
 import fs from "fs/promises";
-import type { APIGatewayProxyEventV2, Callback, Context } from "aws-lambda";
+import type { APIGatewayProxyEventV2, Context } from "aws-lambda";
 import { convertFrom, convertTo } from "../lib/event-mapper.js";
 import { debug } from "../lib/logger.js";
 import { ResponseStream } from "../lib/types";
 import { build404Url, createRequest, existsAsync } from "../lib/entrypoint-utils.js";
-
-type RequestHandler = (
-  event: APIGatewayProxyEventV2,
-  streamResponse: ResponseStream,
-  context?: Context,
-  callback?: Callback,
-) => void | Promise<void>;
-
-declare global {
-  const awslambda: {
-    streamifyResponse(handler: RequestHandler): RequestHandler;
-    HttpResponseStream: {
-      from(
-        underlyingStream: ResponseStream,
-        metadata: {
-          statusCode: number;
-          headers?: Record<string, string>;
-        },
-      ): ResponseStream;
-    };
-  };
-}
 
 function streamError(
   statusCode: number,
@@ -51,6 +29,7 @@ const app = createApp();
 async function streamHandler(
   event: APIGatewayProxyEventV2,
   responseStream: ResponseStream,
+  _context: Context,
 ) {
   debug("event", event);
 

@@ -7,9 +7,11 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
+    "types": ["node", "aws-lambda"],
     "allowJs": true,
     "resolveJsonModule": true,
     "module": "esnext",
+    "rootDir": "./src",
     "outDir": "./dist",
     "target": "ES2020"
   }

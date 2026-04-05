@@ -1,26 +1,23 @@
 # astro-sst
 
 This adapter allows Astro to deploy your SSR or static site to [AWS](https://aws.amazon.com/).
+This fork currently targets Astro 6.1 and newer.
 
 ## Installation
 
-Add the AWS adapter to enable SST in your Astro project with the following `astro add` command. This will install the adapter and make the appropriate changes to your `astro.config.mjs` file in one step.
+Right now this fork isn't being published anywhere. Use one of these local approaches while validating it:
 
-```sh
-# Using NPM
-npx astro add astro-sst
-# Using Yarn
-yarn astro add astro-sst
-# Using PNPM
-pnpm astro add astro-sst
-```
+1. Link it from this workspace with the included example app:
 
-If you prefer to install the adapter manually instead, complete the following two steps:
+   ```sh
+   pnpm install
+   pnpm --filter astro-sst-example dev
+   ```
 
-1. Install the AWS adapter to your project's dependencies using your preferred package manager. If you're using npm or aren't sure, run this in the terminal:
+1. Add it to another local Astro project from a filesystem path:
 
-   ```bash
-     npm install astro-sst
+   ```sh
+   pnpm add /absolute/path/to/astro-sst/packages/astro-sst
    ```
 
 1. Add two new lines to your `astro.config.mjs` project configuration file.
@@ -53,6 +50,51 @@ export default defineConfig({
   }),
 });
 ```
+
+## Publishing
+
+If you are publishing your fork of this package, update the package metadata in [packages/astro-sst/package.json](/Users/joe/source/astro-sst/packages/astro-sst/package.json) first, especially `name`, `version`, `repository`, and `bugs`.
+
+Manual release steps:
+
+```sh
+# Install dependencies from the repo root.
+pnpm install
+
+# Update the version in packages/astro-sst/package.json.
+# Update packages/astro-sst/CHANGELOG.md with the release notes for that version.
+
+# Build the package and verify TypeScript output is generated in packages/astro-sst/dist.
+pnpm build
+
+# Publish from the package directory.
+cd packages/astro-sst
+pnpm publish --access public
+```
+
+If you are publishing a scoped package, use your scoped package name and make sure that scope is configured in the npm registry account you are publishing to.
+
+## Testing
+
+Run the adapter unit tests from the repo root:
+
+```sh
+pnpm test
+```
+
+Build the included Astro example app:
+
+```sh
+pnpm example:build
+```
+
+Build the example and verify the generated adapter metadata:
+
+```sh
+pnpm example:verify
+```
+
+The example app lives in [examples/basic](/Users/joe/source/astro-sst/examples/basic) and uses the workspace version of [packages/astro-sst](/Users/joe/source/astro-sst/packages/astro-sst).
 
 ## Upgrading from v2
 

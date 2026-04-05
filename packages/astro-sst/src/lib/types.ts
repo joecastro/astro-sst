@@ -1,6 +1,3 @@
-import type { Writable } from "stream";
+import "aws-lambda";
 
-export interface ResponseStream extends Writable {
-  getBufferedData(): Buffer;
-  setContentType(contentType: string): void;
-}
+export type ResponseStream = awslambda.HttpResponseStream;
