@@ -1,12 +1,24 @@
 # astro-sst
 
 This adapter allows Astro to deploy your SSR or static site to [AWS](https://aws.amazon.com/).
+This fork currently targets Astro 6.1 and newer.
 
 ## Installation
 
-Right now this fork isn't being published anywhere. To use it complete the steps:
+Right now this fork isn't being published anywhere. Use one of these local approaches while validating it:
 
-1. Install the AWS adapter to your project's dependencies using your preferred package manager.
+1. Link it from this workspace with the included example app:
+
+   ```sh
+   pnpm install
+   pnpm --filter astro-sst-example dev
+   ```
+
+1. Add it to another local Astro project from a filesystem path:
+
+   ```sh
+   pnpm add /absolute/path/to/astro-sst/packages/astro-sst
+   ```
 
 1. Add two new lines to your `astro.config.mjs` project configuration file.
 
@@ -61,6 +73,28 @@ pnpm publish --access public
 ```
 
 If you are publishing a scoped package, use your scoped package name and make sure that scope is configured in the npm registry account you are publishing to.
+
+## Testing
+
+Run the adapter unit tests from the repo root:
+
+```sh
+pnpm test
+```
+
+Build the included Astro example app:
+
+```sh
+pnpm example:build
+```
+
+Build the example and verify the generated adapter metadata:
+
+```sh
+pnpm example:verify
+```
+
+The example app lives in [examples/basic](/Users/joe/source/astro-sst/examples/basic) and uses the workspace version of [packages/astro-sst](/Users/joe/source/astro-sst/packages/astro-sst).
 
 ## Upgrading from v2
 

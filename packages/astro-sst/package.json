@@ -38,7 +38,7 @@
     "build": "tsc"
   },
   "peerDependencies": {
-    "astro": "^6.1.3"
+    "astro": "^6.1.0"
   },
   "dependencies": {
     "set-cookie-parser": "^3.1.0"

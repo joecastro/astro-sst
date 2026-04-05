@@ -4,13 +4,20 @@
   "type": "module",
   "packageManager": "pnpm@10.8.1",
   "workspaces": [
-    "packages/astro-sst"
+    "packages/astro-sst",
+    "examples/*"
   ],
   "scripts": {
-    "build": "pnpm --filter astro-sst build"
+    "build": "pnpm --filter astro-sst build",
+    "test": "vitest run",
+    "example:build": "pnpm --filter astro-sst-example build",
+    "example:verify": "pnpm example:build && node scripts/verify-example-build.mjs"
   },
   "dependencies": {
     "prettier": "3.8.1",
     "typescript": "6.0.2"
+  },
+  "devDependencies": {
+    "vitest": "^4.0.0"
   }
 }

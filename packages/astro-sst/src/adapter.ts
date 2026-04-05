@@ -4,7 +4,9 @@ import ASTRO_PACKAGE from "astro/package.json" with { type: "json" };
 import { debug } from "./lib/logger.js";
 
 const PACKAGE_NAME = "astro-sst";
-const astroMajorVersion = parseInt(ASTRO_PACKAGE.version.split(".")[0] ?? 0);
+const [astroMajorVersion, astroMinorVersion] = ASTRO_PACKAGE.version
+  .split(".")
+  .map((value) => parseInt(value ?? "0", 10));
 
 export default function createIntegration(
   entrypointParameters: IntegrationConfig = {
@@ -13,9 +15,12 @@ export default function createIntegration(
 ): AstroIntegration {
   debug("astroVersion", ASTRO_PACKAGE.version);
 
-  if (astroMajorVersion < 6) {
+  if (
+    astroMajorVersion < 6 ||
+    (astroMajorVersion === 6 && astroMinorVersion < 1)
+  ) {
     throw new Error(
-      "astro-sst requires Astro 6 or newer. Please upgrade your Astro app. Alternatively, use v3 of astro-sst by pinning to `astro-sst@three`."
+      "astro-sst requires Astro 6.1 or newer. Please upgrade your Astro app. Alternatively, use v3 of astro-sst by pinning to `astro-sst@three`."
     );
   }
 
